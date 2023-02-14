@@ -1,0 +1,1 @@
+This is a short-assignment for the Harvard CS 178: Engineering Usable Interactive Systems class. I followed a To-Do App [tutorial](https://www.python-engineer.com/posts/flask-todo-app/) for Flask.
