@@ -1,24 +1,28 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
+# CONCEPT: class (instantiation)
 app = Flask(__name__)
 
 # /// = relative path, //// = absolute path
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# CONCEPT: class (instantiation)
 db = SQLAlchemy(app)
 
+# CONCEPT: class
 class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
     complete = db.Column(db.Boolean)
 
-# for each url/route we want, create a function and decorite it with @app.route('path/to/your/url')
+# CONCEPT: routing
 @app.route('/')
 def home():
     todo_list = Todo.query.all()
     return render_template("base.html", todo_list=todo_list)
 
+# CONCEPT: routing
 @app.route("/add", methods=["POST"])
 def add():
     title = request.form.get("title")
@@ -27,6 +31,7 @@ def add():
     db.session.commit()
     return redirect(url_for("home"))
 
+# CONCEPT: routing
 @app.route("/update/<int:todo_id>")
 def update(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
@@ -34,6 +39,7 @@ def update(todo_id):
     db.session.commit()
     return redirect(url_for("home"))
 
+# CONCEPT: routing
 @app.route("/delete/<int:todo_id>")
 def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
@@ -42,8 +48,8 @@ def delete(todo_id):
     return redirect(url_for("home"))
 
 if __name__ == "__main__":
-    # Stackoverflow: https://stackoverflow.com/questions/31444036/runtimeerror-working-outside-of-application-context
-    with app.app_context(): # tell the app to use the venv context?
+    # CREDIT: https://stackoverflow.com/questions/31444036/runtimeerror-working-outside-of-application-context
+    with app.app_context():
         db.create_all()
 
     app.run(debug=True)

@@ -1,1 +1,3 @@
 This is a short-assignment for the Harvard CS 178: Engineering Usable Interactive Systems class. I followed a To-Do App [tutorial](https://www.python-engineer.com/posts/flask-todo-app/) for Flask.
+
+Follow the linked tutorial to create and activate a Python virtual environment, as well as install Flask and Flask-SQLAlchemy, for the project. Then, you can run the web app via `python app.py`, and the console will provide a link to view the app on.
